@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+  <style>
+    .container {
+      gap: 30px;
+      border: 2px solid black;
+      padding: 20px 20px;
+      margin: 200px 400px;
+      width: 200px;
+      height: 320px;
+      background-color: orange;
+      border-radius: 30px;
+    }
+
+    .display {
+      padding: 12px;
+    }
+
+    .set {
+      background-color: rgb(56, 236, 56);
+      margin-left: 50px;
+      border-radius: 30px;
+      font-weight: bolder;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Temperature Converter</h2>
+    <div class="display">
+      <label for="fromUnit">From:</label>
+      <select id="fromUnit">
+        <option value="celsius">Celsius (°C)</option>
+        <option value="fahrenheit">Fahrenheit (°F)</option>
+        <option value="kelvin">Kelvin (K)</option>
+      </select>
+    </div>
+    <div class="display">
+      <label for="toUnit">To:</label>
+      <select id="toUnit">
+        <option value="celsius">Celsius (°C)</option>
+        <option value="fahrenheit">Fahrenheit (°F)</option>
+        <option value="kelvin">Kelvin (K)</option>
+      </select>
+    </div>
+    <div class="display ">
+      <label for="value">Enter Temperature:</label>
+      <input type="number" id="value" placeholder="Enter any number">
+    </div>
+    <button class="set" onclick="convertTemperature()">Convert</button>
+
+    <div class="display">
+      <label for="value">Result:</label>
+      <input type="text" id="output" readonly placeholder="Result">
+    </div>
+  </div>
+
+  <script>
+    function convertTemperature() {
+      const from = document.getElementById('fromUnit').value;
+      const to = document.getElementById('toUnit').value;
+      const value = parseFloat(document.getElementById('value').value);
+      const output = document.getElementById('output');
+
+      if (isNaN(value)) {
+        return;
+      }
+
+      let result;
+
+      switch (from + "_to_" + to) {
+        case "celsius_to_celsius":
+          result = value;
+          break;
+        case "celsius_to_fahrenheit":
+          result = (value * 9 / 5) + 32;
+          break;
+        case "celsius_to_kelvin":
+          result = value + 273.15;
+          break;
+
+        case "fahrenheit_to_fahrenheit":
+          result = value;
+          break;
+        case "fahrenheit_to_celsius":
+          result = (value - 32) * 5 / 9;
+          break;
+        case "fahrenheit_to_kelvin":
+          result = (value - 32) * 5 / 9 + 273.15;
+          break;
+
+        case "kelvin_to_kelvin":
+          result = value;
+          break;
+        case "kelvin_to_celsius":
+          result = value - 273.15;
+          break;
+        case "kelvin_to_fahrenheit":
+          result = (value - 273.15) * 9 / 5 + 32;
+          break;
+
+        default:
+          result = "Invalid conversion";
+      }
+      output.value = `${result.toFixed(2)} ${getUnitSymbol(to)}`;
+    }
+
+    function getUnitSymbol(unit) {
+      switch (unit) {
+        case 'celsius': return '°C';
+        case 'fahrenheit': return '°F';
+        case 'kelvin': return 'K';
+        default: return '';
+      }
+    }
+  </script>
+</body>
+
+</html>
