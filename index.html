@@ -5,79 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Temperature Converter</title>
   <style>
-    .container {
+    .holder{
       gap: 30px;
       border: 2px solid black;
       padding: 20px 20px;
       margin: 200px 400px;
       width: 200px;
-      height: 320px;
+      height: 320;
       background-color: orange;
       border-radius: 30px;
     }
 
-    .display {
+    .displays{
       padding: 12px;
     }
 
-    .set {
+    .set{
       background-color: rgb(56, 236, 56);
       margin-left: 50px;
       border-radius: 30px;
       font-weight: bolder;
     }
-      @media(max-width: 600px){
-        .container{
-          width: 90%;
-          margin:20px auto;
-          height: auto;
-        }
-      
-        .set{
-          margin-left: 0;
-        }
-      }
-      @media(min-width:600px) and
-      (max-width:1024px){
-        .container{
-          width: 70%;
-          margin: 100px auto;
-        }
-      } 
   </style>
 </head>
-
 <body>
-  <div class="container">
+  <div class="holder">
     <h2>Temperature Converter</h2>
-    <div class="display">
+    <div class="displays">
       <label for="fromUnit">From:</label>
       <select id="fromUnit">
-        <option value="celsius">Celsius (°C)</option>
+        <option value="celcius">Celcius (°C)</option> <!-- degree symbol using ALT + 0176 on the numeric keypad -->
         <option value="fahrenheit">Fahrenheit (°F)</option>
         <option value="kelvin">Kelvin (K)</option>
       </select>
     </div>
-    <div class="display">
+    <div class="displays">
       <label for="toUnit">To:</label>
       <select id="toUnit">
-        <option value="celsius">Celsius (°C)</option>
+        <option value="celcius">Celcius (°C)</option>
         <option value="fahrenheit">Fahrenheit (°F)</option>
         <option value="kelvin">Kelvin (K)</option>
       </select>
     </div>
-    <div class="display ">
+    <div class="displays">
       <label for="value">Enter Temperature:</label>
       <input type="number" id="value" placeholder="Enter any number">
     </div>
     <button class="set" onclick="convertTemperature()">Convert</button>
-
-    <div class="display">
+    <div class="displays">
       <label for="value">Result:</label>
       <input type="text" id="output" readonly placeholder="Result">
     </div>
   </div>
-
   <script>
     function convertTemperature() {
       const from = document.getElementById('fromUnit').value;
@@ -85,58 +64,54 @@
       const value = parseFloat(document.getElementById('value').value);
       const output = document.getElementById('output');
 
-      if (isNaN(value)) {
+      if(isNaN(value)){
         return;
       }
-
+      
       let result;
 
-      switch (from + "_to_" + to) {
-        case "celsius_to_celsius":
+      switch(from + "_to_" + to){
+        case "celcius_to_celcius":
           result = value;
           break;
-        case "celsius_to_fahrenheit":
+          case "celcius_to_fahrenheit":
           result = (value * 9 / 5) + 32;
           break;
-        case "celsius_to_kelvin":
+          case "celcius_to_kelvin":
           result = value + 273.15;
           break;
-
-        case "fahrenheit_to_fahrenheit":
+          case "fahrenheit_to_fahrenheit":
           result = value;
           break;
-        case "fahrenheit_to_celsius":
+          case "fahrenheit_to_celcius":
           result = (value - 32) * 5 / 9;
           break;
-        case "fahrenheit_to_kelvin":
+          case "fahrenheit_to_kelvin":
           result = (value - 32) * 5 / 9 + 273.15;
           break;
-
-        case "kelvin_to_kelvin":
+          case "kelvin_to_kelvin":
           result = value;
           break;
-        case "kelvin_to_celsius":
+          case "kelvin_to_celcius":
           result = value - 273.15;
           break;
-        case "kelvin_to_fahrenheit":
+          case "kelvin_to_fahrenheit":
           result = (value - 273.15) * 9 / 5 + 32;
           break;
 
-        default:
-          result = "Invalid conversion";
+          default:
+            result = "Invalid conversion";
       }
       output.value = `${result.toFixed(2)} ${getUnitSymbol(to)}`;
     }
 
     function getUnitSymbol(unit) {
       switch (unit) {
-        case 'celsius': return '°C';
+        case 'celcius': return '°C';
         case 'fahrenheit': return '°F';
         case 'kelvin': return 'K';
-        default: return '';
       }
     }
   </script>
 </body>
-
 </html>
